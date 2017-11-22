@@ -1,5 +1,6 @@
 <?php
-require 'vendor/autoload.php';
+
+namespace Sirolad;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
@@ -58,7 +59,7 @@ class RouteSMS
      * @param int $dlr
      * @throws Exception
      */
-    public function send($sender, $recipient, $message, $type=0, $dlr=1)
+    public function send($sender, $recipient, $message, $type = 0, $dlr = 1)
     {
         if (!$recipient || !is_numeric(trim($recipient))) {
             throw new Exception('Recipient is required and must be numeric');
