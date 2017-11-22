@@ -13,6 +13,8 @@ composer update
 
 ######Usage
 ```php
+use Sirolad\RouteSMS;
+
 $sms = new RouteSMS($username, $password);
 
 $result = $sms->send($sender, $recipient, $message, $type=0, $dlr=1);
@@ -36,7 +38,7 @@ Values for "type":-
 *$dlr:* Indicates whether the client wants delivery report for this message
 Range of values for "dlr":-
 0: No Delivery report required
-1: Delivery report required 
+1: Delivery report required
 
 *$sender:* The source address that should appear in the message
 Max Length of 18 if Only Numeric
@@ -44,7 +46,7 @@ Max Length of 11 if Alpha numeric
 If you wish plus ('+') should be prefixed to the sender address when the message is displayed
  on the cell phone, please prefix the plus sign to your sender address while submitting the
 message (note the plus sign should be URL encoded). Additional restrictions on this field may
-be enforced by the SMSC. 
+be enforced by the SMSC.
 
 For more information please consult the [RouteSMS guide](http://routesms.com/downloads/resaller/RouteSms-Reseller-BulkApi.pdf)
 
