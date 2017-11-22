@@ -17,7 +17,7 @@ $sms = new RouteSMS($username, $password);
 
 $result = $sms->send($sender, $recipient, $message, $type=0, $dlr=1);
 
-echo $result; //success
+return $result; //{"status":"1701","recipient":"2348037XXXXXX","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"}
 ```
 
 If message is successful, you will get a `success` response else an exception will be thrown.

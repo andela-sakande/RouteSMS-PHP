@@ -57,22 +57,22 @@ class RouteSMS
      * @param string $message
      * @param int $type
      * @param int $dlr
-     * @throws Exception
+     * @throws \Exception
      */
     public function send($sender, $recipient, $message, $type = 0, $dlr = 1)
     {
         if (!$recipient || !is_numeric(trim($recipient))) {
-            throw new Exception('Recipient is required and must be numeric');
+            throw new \Exception('Recipient is required and must be numeric');
         }
 
         if (!$sender ||
             (is_numeric($sender) && strlen($sender) > 11) ||
             (ctype_alnum($sender) && strlen($sender) > 18)) {
-            throw new Exception('Sender is required and must not exceed 11 numerals or 18 for alphanumeric characters');
+            throw new \Exception('Sender is required and must not exceed 11 numerals or 18 for alphanumeric characters');
         }
 
         if (!$message) {
-            throw new Exception('Message is required');
+            throw new \Exception('Message is required');
         }
 
         if ($recipient && $sender && $message) {
@@ -87,51 +87,67 @@ class RouteSMS
             ];
 
             $url = 'bulksms?' . http_build_query($fragment);
-            try {
 
+            try {
                 $response = $this->client->request('GET', $url);
                 $response = $response->getBody()->getContents();
                 $result = explode('|', $response);
 
                 switch ($result[0]) {
                     case self::SUCCESS:
-                        echo 'Success';
+                        return $this->transformResponse($response);
                         break;
                     case self::INVALID_USERNAME_PASSWORD:
-                        throw new Exception('Invalid username or password supplied');
+                        throw new \Exception('Invalid username or password supplied');
                         break;
                     case self::INVALID_TYPE:
-                        throw new Exception('Invalid type supplied.');
+                        throw new \Exception('Invalid type supplied.');
                         break;
                     case self::INVALID_MESSAGE:
-                        throw new Exception('Invalid message. Message contains invalid characters');
+                        throw new \Exception('Invalid message. Message contains invalid characters');
                         break;
                     case self::INVALID_RECIPIENT:
-                        throw new Exception('Invalid recipient. Recipient must be numeric');
+                        throw new \Exception('Invalid recipient. Recipient must be numeric');
                         break;
                     case self::INVALID_SENDER:
-                        throw new Exception('Invalid sender. Sender must not be more than 11 characters');
+                        throw new \Exception('Invalid sender. Sender must not be more than 11 characters');
                         break;
                     case self::INVALID_DLR:
-                        throw new Exception('Invalid dlr supplied');
+                        throw new \Exception('Invalid dlr supplied');
                         break;
                     case self::USER_VALIDATION_ERROR:
-                        throw new Exception('User validation error');
+                        throw new \Exception('User validation error');
                         break;
                     case self::INTERNAL_ERROR:
-                        throw new Exception('Internal error');
+                        throw new \Exception('Internal error');
                         break;
                     case self::INSUFFICIENT_CREDIT:
-                        throw new Exception('Insufficient credit');
+                        throw new \Exception('Insufficient credit');
                         break;
                     default:
-                        throw new Exception('An error occurred with code ' .  $result[0]);
+                        throw new \Exception('An error occurred with code ' .  $result[0]);
                 }
 
             } catch (TransferException $e) {
-                throw new Exception('The following error occurred ' . $e->getMessage());
+                throw new \Exception('The following error occurred ' . $e->getMessage());
             }
-
         }
+    }
+
+    /**
+     * @param $response
+     * @return string
+     */
+    protected function transformResponse($response)
+    {
+        list($status, $recipient, $messageId) = $response;
+
+        $array = [
+          "status" => $status,
+          "recipient" => $recipient,
+          "messageId" => $messageId
+        ];
+
+        return json_encode($array);
     }
 }
