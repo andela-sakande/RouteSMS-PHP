@@ -58,6 +58,7 @@ class RouteSMS
      * @param int $type
      * @param int $dlr
      * @throws \Exception
+     * @return string
      */
     public function send($sender, $recipient, $message, $type = 0, $dlr = 1)
     {
