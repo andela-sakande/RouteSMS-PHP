@@ -6,7 +6,7 @@ A modular PHP library for interacting with RouteSMS.
 You will need composer in other to use this library. Head over to [Composer](https://getcomposer.org) to get started.
 
 ```
-git clone git@github.com:cyberomin/RouteSMS-PHP.git
+composer require sirolad/route-sms-php
 
 composer update
 ```
