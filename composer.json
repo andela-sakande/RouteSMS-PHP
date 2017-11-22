@@ -1,5 +1,15 @@
 {
+    "name": "sirolad/route-sms-php",
+    "description": "Route SMS PHP Library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Surajudeen Akande",
+            "email": "surajudeen.akande@andela.com"
+        }
+    ],
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "^6.3"
     }
 }
