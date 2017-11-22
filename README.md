@@ -7,8 +7,6 @@ You will need composer in other to use this library. Head over to [Composer](htt
 
 ```
 composer require sirolad/route-sms-php
-
-composer update
 ```
 
 ######Usage
