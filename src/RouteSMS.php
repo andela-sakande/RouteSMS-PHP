@@ -92,11 +92,19 @@ class RouteSMS
             try {
                 $response = $this->client->request('GET', $url);
                 $response = $response->getBody()->getContents();
+                if (strpos($response, ',')) {
+                    $bulks = explode(',', $response);
+                    foreach ($bulks as $bulk) {
+                        $single = explode('|', $bulk);
+                        $totalBulk []= $this->transformResponse($single);
+                    }
+                    return json_encode($totalBulk);
+                }
                 $result = explode('|', $response);
 
                 switch ($result[0]) {
                     case self::SUCCESS:
-                        return $this->transformResponse($response);
+                        return json_encode($this->transformResponse($response));
                         break;
                     case self::INVALID_USERNAME_PASSWORD:
                         throw new \Exception('Invalid username or password supplied');
@@ -149,6 +157,6 @@ class RouteSMS
           "messageId" => $messageId
         ];
 
-        return json_encode($array);
+        return $array;
     }
 }
