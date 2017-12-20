@@ -46,7 +46,7 @@ class RouteSMS
         $this->username = $username;
         $this->password = $password;
         $this->client = new Client([
-            'base_uri' => 'http://smsplus3.routesms.com:8080/bulksms/',
+            'base_uri' => 'http://smsplus4.routesms.com/bulksms/',
             'timeout' => 15
         ]);
     }
@@ -92,11 +92,11 @@ class RouteSMS
             try {
                 $response = $this->client->request('GET', $url);
                 $response = $response->getBody()->getContents();
+                \Log::info($response);
                 if (strpos($response, ',')) {
                     $bulks = explode(',', $response);
                     foreach ($bulks as $bulk) {
-                        $single = explode('|', $bulk);
-                        $totalBulk []= $this->transformResponse($single);
+                        $totalBulk []= $this->transformResponse($bulk);
                     }
                     return json_encode($totalBulk);
                 }
@@ -147,9 +147,10 @@ class RouteSMS
      * @param $response
      * @return string
      */
-    protected function transformResponse($response)
+    protected function transformResponse(string $response)
     {
-        list($status, $recipient, $messageId) = $response;
+        $single = explode('|', $response);
+        list($status, $recipient, $messageId) = $single;
 
         $array = [
           "status" => $status,
