@@ -92,7 +92,7 @@ class RouteSMS
             try {
                 $response = $this->client->request('GET', $url);
                 $response = $response->getBody()->getContents();
-                \Log::info($response);
+
                 if (strpos($response, ',')) {
                     $bulks = explode(',', $response);
                     foreach ($bulks as $bulk) {
