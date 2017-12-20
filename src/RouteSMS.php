@@ -58,7 +58,7 @@ class RouteSMS
      * @param int $type
      * @param int $dlr
      * @throws \Exception
-     * @return string
+     * @return array
      */
     public function send($sender, $recipient, $message, $type = 0, $dlr = 1)
     {
@@ -145,7 +145,7 @@ class RouteSMS
 
     /**
      * @param $response
-     * @return string
+     * @return $array
      */
     protected function transformResponse(string $response)
     {
