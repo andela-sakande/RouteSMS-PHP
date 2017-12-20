@@ -98,13 +98,13 @@ class RouteSMS
                     foreach ($bulks as $bulk) {
                         $totalBulk []= $this->transformResponse($bulk);
                     }
-                    return json_encode($totalBulk);
+                    return $totalBulk;
                 }
                 $result = explode('|', $response);
 
                 switch ($result[0]) {
                     case self::SUCCESS:
-                        return json_encode($this->transformResponse($response));
+                        return $this->transformResponse($response);
                         break;
                     case self::INVALID_USERNAME_PASSWORD:
                         throw new \Exception('Invalid username or password supplied');
