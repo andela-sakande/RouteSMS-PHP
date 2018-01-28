@@ -60,18 +60,8 @@ class RouteSMS
      * @throws \Exception
      * @return array
      */
-    public function send($sender, $recipient, $message, $type = 0, $dlr = 1)
+    public function send(string $sender, string $recipient, $message, $type = 0, $dlr = 1)
     {
-        if (!$recipient || !is_numeric(trim($recipient))) {
-            throw new \Exception('Recipient is required and must be numeric');
-        }
-
-        if (!$sender ||
-            (is_numeric($sender) && strlen($sender) > 11) ||
-            (ctype_alnum($sender) && strlen($sender) > 18)) {
-            throw new \Exception('Sender is required and must not exceed 11 numerals or 18 for alphanumeric characters');
-        }
-
         if (!$message) {
             throw new \Exception('Message is required');
         }
