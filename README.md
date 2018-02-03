@@ -17,7 +17,7 @@ $sms = new RouteSMS($username, $password);
 
 $result = $sms->send($sender, $recipient, $message, $type=0, $dlr=1);
 
-return $result; //{"status":"1701","recipient":"2348037XXXXXX","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"}
+return $result; //[{"status":"1701","recipient":"2348037XXXXXX","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"}]
 
 for Bulk sms it returns
 [{"status":"1701","recipient":"2348037690966","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"},{"status":"1702","recipient":"2348037690966","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"},{"status":"1703","recipient":"2348037690966","messageId":"fbf2f6bc-b708-4895-867b-3418cf62031d"}]
