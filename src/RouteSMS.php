@@ -53,12 +53,12 @@ class RouteSMS
 
     /**
      * @param string $sender
-     * @param int $recipient
-     * @param string $message
+     * @param string $recipient
+     * @param $message
      * @param int $type
      * @param int $dlr
-     * @throws \Exception
      * @return array
+     * @throws \Exception
      */
     public function send(string $sender, string $recipient, $message, $type = 0, $dlr = 1)
     {
@@ -94,7 +94,7 @@ class RouteSMS
 
                 switch ($result[0]) {
                     case self::SUCCESS:
-                        return $this->transformResponse($response);
+                        return [$this->transformResponse($response)];
                         break;
                     case self::INVALID_USERNAME_PASSWORD:
                         throw new \Exception('Invalid username or password supplied');
