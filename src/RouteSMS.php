@@ -46,7 +46,7 @@ class RouteSMS
         $this->username = $username;
         $this->password = $password;
         $this->client = new Client([
-            'base_uri' => 'http://ngnclient.rmlconnect.net/bulksms/',
+            'base_uri' => 'http://ngn.rmlconnect.net/bulksms/',
             'timeout' => 15
         ]);
     }
