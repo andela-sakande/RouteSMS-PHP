@@ -40,6 +40,7 @@ class RouteSMS
     const USER_VALIDATION_ERROR = 1709;
     const INTERNAL_ERROR = 1710;
     const INSUFFICIENT_CREDIT = 1025;
+    const DND_NUMBER = 1032;
 
     public function __construct($username, $password)
     {
@@ -82,7 +83,7 @@ class RouteSMS
             try {
                 $response = $this->client->request('GET', $url);
                 $response = $response->getBody()->getContents();
-
+                //Handle bulk response
                 if (strpos($response, ',')) {
                     $bulks = explode(',', $response);
                     foreach ($bulks as $bulk) {
@@ -93,7 +94,7 @@ class RouteSMS
                 $result = explode('|', $response);
 
                 switch ($result[0]) {
-                    case self::SUCCESS:
+                    case (self::SUCCESS || self::DND_NUMBER):
                         return [$this->transformResponse($response)];
                         break;
                     case self::INVALID_USERNAME_PASSWORD:
