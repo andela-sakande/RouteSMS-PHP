@@ -140,27 +140,17 @@ class RouteSMS
      */
     protected function transformResponse(string $response)
     {
-        $single = explode('|', $response);
+        $single = explode('|', $response. '|');
 
-        if (count($single) === 3) {
-            list($status, $recipient, $messageId) = $single;
-
-            $array = [
-                "status" => $status,
-                "recipient" => $recipient,
-                "messageId" => $messageId
-            ];
-
-            return $array;
-        }
-
-        list($status, $recipient) = $single;
+        list($status, $recipient, $messageId) = $single;
 
         $array = [
             "status" => $status,
             "recipient" => $recipient,
+            "messageId" => $messageId
         ];
 
         return $array;
+
     }
 }
